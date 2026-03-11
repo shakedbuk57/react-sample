@@ -25,7 +25,7 @@ src/
 
 The project includes complete configurations for **ESLint**, **Prettier**, **Stylelint**, **Husky** (pre-commit hooks), and **CI/CD via GitHub Actions**.
 
-In this project we're using `RTK Query` for API request system and `Redux Toolkit` for API cache system and state management.  
+In this project we're using `RTK Query` for API request system and `Redux Toolkit` for API cache system and state management.
 
 ---
 
@@ -122,17 +122,17 @@ import { APP_ROUTES } from '@/shared/constants';
 
 Here’s a list of useful scripts for development and maintenance:
 
-| Command           | Description                                  |
-|------------------|----------------------------------------------|
-| `dev`            | Run the project locally using Vite           |
-| `test`           | Run unit tests with Vitest                   |
-| `prepare`        | Prepare Git hooks using Husky                |
-| `lint`           | Run ESLint and fix issues automatically      |
-| `format`         | Format the code using Prettier               |
-| `build`          | Build TypeScript and the app bundle          |
-| `check-lint`     | Check lint issues without fixing             |
-| `check-format`   | Check code formatting                        |
-| `preview`        | Preview production build at port 8080        |
-| `check-types`    | Type-check the project without emitting files|
-| `pretty`         | Format all JS/TS/CSS/SCSS source files       |
-| `lint:style`     | Run Stylelint for style file validation      |
+| Command        | Description                                   |
+| -------------- | --------------------------------------------- |
+| `dev`          | Run the project locally using Vite            |
+| `test`         | Run unit tests with Vitest                    |
+| `prepare`      | Prepare Git hooks using Husky                 |
+| `lint`         | Run ESLint and fix issues automatically       |
+| `format`       | Format the code using Prettier                |
+| `build`        | Build TypeScript and the app bundle           |
+| `check-lint`   | Check lint issues without fixing              |
+| `check-format` | Check code formatting                         |
+| `preview`      | Preview production build at port 8080         |
+| `check-types`  | Type-check the project without emitting files |
+| `pretty`       | Format all JS/TS/CSS/SCSS source files        |
+| `lint:style`   | Run Stylelint for style file validation       |
