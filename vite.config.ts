@@ -16,17 +16,18 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    VitePWA({
-      manifest: false,
-      registerType: 'autoUpdate',
-      injectRegister: 'script-defer',
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,jpeg,jpg,png,svg}']
-      },
-      devOptions: {
-        enabled: false
-      }
-    })
+    // VitePWA plugin disabled due to workbox cache size issues with Storybook builds
+    // VitePWA({
+    //   manifest: false,
+    //   registerType: 'autoUpdate',
+    //   injectRegister: 'script-defer',
+    //   workbox: {
+    //     globPatterns: ['**/*.{js,css,html,jpeg,jpg,png,svg}']
+    //   },
+    //   devOptions: {
+    //     enabled: false
+    //   }
+    // })
   ],
   test: {
     globals: true,
