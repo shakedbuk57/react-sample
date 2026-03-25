@@ -62,6 +62,12 @@ export function OrganizationSettingsPage() {
       icon: 'network',
       isSelected: false,
       expandable: true
+    },
+    {
+      id: 'proj-6',
+      name: 'Dashboard Analytics',
+      icon: 'thumbs-up',
+      isSelected: false
     }
   ];
 
