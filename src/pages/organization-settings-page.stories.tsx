@@ -33,3 +33,15 @@ export const WithUsersTab: Story = {
     );
   }
 };
+
+export const ExpandedProjects: Story = {
+  render: () => {
+    const [expandedGroups, setExpandedGroups] = React.useState<Set<string>>(new Set(['group-1', 'proj-5']));
+
+    return (
+      <div>
+        <OrganizationSettingsPage />
+      </div>
+    );
+  }
+};
