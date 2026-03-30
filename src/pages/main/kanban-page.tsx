@@ -151,6 +151,82 @@ function TaskCard({ task }: { task: Task }) {
   );
 }
 
+function ListView({ columns }: { columns: TaskColumn[] }) {
+  const allTasks: (Task & { columnId: string; columnTitle: string })[] = columns.flatMap((col) =>
+    col.tasks.map((task) => ({ ...task, columnId: col.id, columnTitle: col.title }))
+  );
+
+  return (
+    <div className='flex-1 overflow-y-auto'>
+      <table className='w-full border-collapse'>
+        <thead>
+          <tr className='border-b bg-slate-50'>
+            <th className='text-left p-4 font-semibold'>Title</th>
+            <th className='text-left p-4 font-semibold'>Description</th>
+            <th className='text-left p-4 font-semibold'>Column</th>
+            <th className='text-left p-4 font-semibold'>Priority</th>
+            <th className='text-left p-4 font-semibold'>Assignee</th>
+            <th className='text-left p-4 font-semibold'>Due Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {allTasks.length === 0 ? (
+            <tr>
+              <td colSpan={6} className='text-center py-8 text-slate-400'>
+                No tasks yet
+              </td>
+            </tr>
+          ) : (
+            allTasks.map((task) => (
+              <tr
+                key={task.id}
+                className={clsx(
+                  'border-b hover:bg-slate-50 transition-colors',
+                  animator({ name: 'fadeIn' })
+                )}
+              >
+                <td className='p-4'>
+                  <span className='font-semibold text-sm'>{task.title}</span>
+                </td>
+                <td className='p-4'>
+                  <span className='text-sm text-slate-500'>{task.description || '—'}</span>
+                </td>
+                <td className='p-4'>
+                  <span className='text-sm'>{task.columnTitle}</span>
+                </td>
+                <td className='p-4'>
+                  <div className='flex items-center gap-2'>
+                    <span
+                      className={clsx(
+                        'rounded-full w-3 h-3',
+                        PRIORITY_COLORS[task.priority]
+                      )}
+                      title={task.priority}
+                    />
+                    <span className='text-sm capitalize'>{task.priority}</span>
+                  </div>
+                </td>
+                <td className='p-4'>
+                  {task.assignee ? (
+                    <span className='bg-slate-200 px-2 py-1 rounded text-xs'>
+                      {task.assignee}
+                    </span>
+                  ) : (
+                    <span className='text-slate-400'>—</span>
+                  )}
+                </td>
+                <td className='p-4'>
+                  <span className='text-sm text-slate-500'>{task.dueDate || '—'}</span>
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 function KanbanColumn({ column, onAddTask }: { column: TaskColumn; onAddTask: (columnId: string) => void }) {
   return (
     <div
@@ -197,6 +273,7 @@ function KanbanColumn({ column, onAddTask }: { column: TaskColumn; onAddTask: (c
 export function KanbanPage() {
   const [columns, setColumns] = useState<TaskColumn[]>(DEFAULT_COLUMNS);
   const [newTaskInput, setNewTaskInput] = useState<{ columnId: string; title: string } | null>(null);
+  const [viewMode, setViewMode] = useState<'kanban' | 'list'>('kanban');
 
   const handleAddTask = (columnId: string) => {
     setNewTaskInput({ columnId, title: '' });
@@ -277,26 +354,57 @@ export function KanbanPage() {
     <main className='w-full h-dvh flex flex-col gap-4 p-6 bg-slate-50 overflow-hidden'>
       <div className='flex items-center justify-between mb-2'>
         <h1 className='text-3xl font-bold'>Kanban Board</h1>
-        <span className='text-sm text-slate-500'>
-          {columns.reduce((sum, col) => sum + col.tasks.length, 0)} total tasks
-        </span>
+        <div className='flex items-center gap-4'>
+          <span className='text-sm text-slate-500'>
+            {columns.reduce((sum, col) => sum + col.tasks.length, 0)} total tasks
+          </span>
+          <div className='flex gap-2 border rounded p-1 bg-white'>
+            <button
+              onClick={() => setViewMode('kanban')}
+              className={clsx(
+                'px-3 py-1 rounded text-sm transition-colors',
+                viewMode === 'kanban'
+                  ? 'bg-blue-500 text-white'
+                  : 'text-slate-600 hover:bg-slate-100'
+              )}
+            >
+              Kanban
+            </button>
+            <button
+              onClick={() => setViewMode('list')}
+              className={clsx(
+                'px-3 py-1 rounded text-sm transition-colors',
+                viewMode === 'list'
+                  ? 'bg-blue-500 text-white'
+                  : 'text-slate-600 hover:bg-slate-100'
+              )}
+            >
+              List
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Kanban Columns Container */}
-      <div className='flex gap-4 flex-1 overflow-x-auto pb-4'>
-        {columns.map((column) => (
-          <div
-            key={column.id}
-            onDragOver={handleColumnDragOver}
-            onDrop={(e) => handleColumnDrop(e, column.id)}
-          >
-            <KanbanColumn
-              column={column}
-              onAddTask={handleAddTask}
-            />
-          </div>
-        ))}
-      </div>
+      {/* Kanban View */}
+      {viewMode === 'kanban' && (
+        <div className='flex gap-4 flex-1 overflow-x-auto pb-4'>
+          {columns.map((column) => (
+            <div
+              key={column.id}
+              onDragOver={handleColumnDragOver}
+              onDrop={(e) => handleColumnDrop(e, column.id)}
+            >
+              <KanbanColumn
+                column={column}
+                onAddTask={handleAddTask}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* List View */}
+      {viewMode === 'list' && <ListView columns={columns} />}
 
       {/* New Task Input Modal (Simple Implementation) */}
       {newTaskInput && (
