@@ -82,7 +82,6 @@ export function BrowseIntegrationsPage() {
     setShowProjectModal(true);
   };
 
-  const azureProvider = providers.find((p) => p.id === 'azure');
   const githubProvider = providers.find((p) => p.id === 'github');
 
   return (
