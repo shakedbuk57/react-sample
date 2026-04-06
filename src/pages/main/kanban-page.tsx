@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { AskAnythingInput } from '@/shared/components/ask-anything-input';
 
 interface Task {
   id: string;
@@ -120,11 +121,14 @@ export function KanbanPage() {
 
   return (
     <main className='flex w-full flex-col items-start justify-start h-dvh gap-6 overflow-hidden bg-background p-6'>
-      <div className='flex flex-col gap-2'>
-        <h1 className='text-2xl font-bold'>Kanban Board</h1>
-        <p className='text-muted-foreground'>
-          Organize and manage your tasks across different workflow stages
-        </p>
+      <div className='flex flex-col gap-4 w-full'>
+        <div className='flex flex-col gap-2'>
+          <h1 className='text-2xl font-bold'>Kanban Board</h1>
+          <p className='text-muted-foreground'>
+            Organize and manage your tasks across different workflow stages
+          </p>
+        </div>
+        <AskAnythingInput onSubmit={(value) => console.log('Submitted:', value)} />
       </div>
 
       <div className='flex w-full gap-6 overflow-x-auto pb-6'>
