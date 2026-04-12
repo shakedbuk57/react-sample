@@ -1,3 +1,4 @@
 export const REDUCER_NAMES = {
-  user: 'user'
+  user: 'user',
+  kanban: 'kanban'
 } as const;

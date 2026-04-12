@@ -1,48 +1,45 @@
 import { useDispatch } from 'react-redux';
 
 import { logoutAction } from '@/shared/store/features/user/user-slices';
-import { useGetMainQuery } from '@/shared/services/main-api';
 import { APP_ROUTES } from '@/shared/constants';
 import { Link } from 'react-router';
+import { KanbanView } from './components/kanban-view';
 
 export function MainPage() {
   const dispatch = useDispatch();
-  const { data, isFetching } = useGetMainQuery();
 
   const handleLogout = () => {
     dispatch(logoutAction());
   };
 
   return (
-    <main className='flex w-full flex-col items-center justify-center h-dvh gap-6'>
-      <h1 className='text-2xl font-bold'>React Sample</h1>
-      <h3 className='flex gap-1'>
-        Main Page <span className='text-red-500'>( Protected )</span>
-      </h3>
-      <button className='border py-3 px-4 rounded' onClick={handleLogout}>
-        Logout
-      </button>
-      <Link to={APP_ROUTES.landing}>[ Return Home ]</Link>
-
-      {isFetching && <p>Loading...</p>}
-      {data && (
-        <div className='w-full flex flex-col gap-2'>
-          <div className='w-full border-b py-2 px-4 flex items-center justify-between mb-4'>
-            <span>Name</span>
-            <span>Age</span>
-          </div>
-
-          {data.data.map((item) => (
-            <div
-              key={item.id}
-              className='w-full border py-2 px-4 rounded flex items-center justify-between'
-            >
-              <span>{item.name}</span>
-              <span>{item.age}</span>
-            </div>
-          ))}
+    <main className='flex w-full flex-col h-dvh gap-4 p-4'>
+      <div className='flex items-center justify-between'>
+        <div>
+          <h1 className='text-3xl font-bold'>React Sample</h1>
+          <p className='text-gray-600'>
+            Task Management <span className='text-red-500'>( Protected )</span>
+          </p>
         </div>
-      )}
+        <div className='flex gap-2'>
+          <Link
+            to={APP_ROUTES.landing}
+            className='text-blue-600 hover:text-blue-800 underline'
+          >
+            Return Home
+          </Link>
+          <button
+            className='border border-gray-300 rounded px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors'
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+
+      <div className='flex-1 overflow-hidden'>
+        <KanbanView />
+      </div>
     </main>
   );
 }

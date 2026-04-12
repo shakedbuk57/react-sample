@@ -32,6 +32,9 @@
     ]
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/vite": "^4.1.11",
     "animate.css": "^4.1.1",
@@ -52,6 +55,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
+    "@storybook/addon-links": "^8.6.18",
+    "@storybook/react-vite": "^8.6.18",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.6.4",
     "@testing-library/react": "^16.3.0",
@@ -76,6 +81,7 @@
     "prettier-plugin-sort-imports": "^1.8.8",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "sass-embedded": "^1.89.2",
+    "storybook": "^8.6.18",
     "stylelint": "^16.23.0",
     "stylelint-config-standard": "^39.0.0",
     "stylelint-config-standard-scss": "^15.0.1",
