@@ -78,7 +78,10 @@ export function LoginPage() {
           {isLoading ? 'Loading...' : 'Login'}
         </button>
 
-        <Link to={APP_ROUTES.landing}>[ Return Home ]</Link>
+        <div className='flex flex-col gap-2 text-sm'>
+          <Link to={APP_ROUTES.signup}>[ Don't have an account? Sign up ]</Link>
+          <Link to={APP_ROUTES.landing}>[ Return Home ]</Link>
+        </div>
       </form>
     </div>
   );
