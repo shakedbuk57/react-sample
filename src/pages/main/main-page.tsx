@@ -1,9 +1,10 @@
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router';
 
 import { logoutAction } from '@/shared/store/features/user/user-slices';
 import { useGetMainQuery } from '@/shared/services/main-api';
 import { APP_ROUTES } from '@/shared/constants';
-import { Link } from 'react-router';
+import { ListView, type Column } from '@/shared/components/list';
 
 export function MainPage() {
   const dispatch = useDispatch();
@@ -26,22 +27,13 @@ export function MainPage() {
 
       {isFetching && <p>Loading...</p>}
       {data && (
-        <div className='w-full flex flex-col gap-2'>
-          <div className='w-full border-b py-2 px-4 flex items-center justify-between mb-4'>
-            <span>Name</span>
-            <span>Age</span>
-          </div>
-
-          {data.data.map((item) => (
-            <div
-              key={item.id}
-              className='w-full border py-2 px-4 rounded flex items-center justify-between'
-            >
-              <span>{item.name}</span>
-              <span>{item.age}</span>
-            </div>
-          ))}
-        </div>
+        <ListView
+          items={data.data}
+          columns={[
+            { key: 'name', label: 'Name' },
+            { key: 'age', label: 'Age' }
+          ] as Column<(typeof data.data)[number]>[]}
+        />
       )}
     </main>
   );
